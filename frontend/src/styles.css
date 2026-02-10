@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 :root {
   color-scheme: light;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #0b1b12;
@@ -118,7 +116,7 @@ body {
 header h1 {
   margin: 0 0 8px;
   font-size: 1.8rem;
-  font-family: 'Bebas Neue', 'Space Grotesk', sans-serif;
+  font-family: 'Impact', 'Arial Black', system-ui, sans-serif;
   letter-spacing: 1px;
   color: #f8fafc;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
