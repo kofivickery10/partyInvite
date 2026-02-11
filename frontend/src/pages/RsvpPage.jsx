@@ -383,7 +383,7 @@ export default function RsvpPage() {
 
           <div className="children">
             <p className="children-helper">
-              Any siblings attending that need a lunchbox too
+              Bringing siblings? Add them below so we can prepare them a lunchbox too.
             </p>
             <button type="button" onClick={addChild} className="ghost add-child-full">
               + Add Another Child
