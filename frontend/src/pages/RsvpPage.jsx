@@ -4,30 +4,6 @@ import { apiGet, apiSend } from '../lib/api.js'
 const emptyChild = () => ({ child_name: '', food_choice_id: '' })
 const defaultTitle = "Riley's 5th Birthday"
 
-function CurvedTitle({ text }) {
-  const chars = Array.from(text || defaultTitle)
-  const mid = (chars.length - 1) / 2
-
-  return (
-    <span className="curved-title" aria-label={text || defaultTitle}>
-      {chars.map((char, index) => {
-        const distance = index - mid
-        const y = Math.pow(Math.abs(distance), 2) * 0.22
-        return (
-          <span
-            key={`${char}-${index}`}
-            className="curved-char"
-            style={{ transform: `translateY(${y}px)` }}
-            aria-hidden="true"
-          >
-            {char === ' ' ? '\u00A0' : char}
-          </span>
-        )
-      })}
-    </span>
-  )
-}
-
 export default function RsvpPage() {
   const [event, setEvent] = useState(null)
   const [foodChoices, setFoodChoices] = useState([])
@@ -119,7 +95,7 @@ export default function RsvpPage() {
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
-            <CurvedTitle text={event?.title || defaultTitle} />
+            {event?.title || defaultTitle}
           </h1>
           <div className="event-details muted">
             <p>{event?.event_date || '28 March 2026'}</p>
