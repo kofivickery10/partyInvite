@@ -4,6 +4,44 @@ import { apiGet, apiSend } from '../lib/api.js'
 const emptyChild = () => ({ child_name: '', food_choice_id: '' })
 const defaultTitle = "Riley's 5th Birthday"
 
+async function withTimeout(promise, ms) {
+  let timeoutId
+  try {
+    return await Promise.race([
+      promise,
+      new Promise((_, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error('Request timed out. Please try again.')),
+          ms
+        )
+      })
+    ])
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
+function renderTitleWithSmallOrdinal(title) {
+  const text = title || defaultTitle
+  const match = text.match(/(\d+)(st|nd|rd|th)/i)
+  if (!match || match.index === undefined) return text
+
+  const full = match[0]
+  const number = match[1]
+  const suffix = match[2]
+  const start = match.index
+  const end = start + full.length
+
+  return (
+    <>
+      {text.slice(0, start)}
+      {number}
+      <span className="ordinal-suffix">{suffix}</span>
+      {text.slice(end)}
+    </>
+  )
+}
+
 export default function RsvpPage() {
   const [event, setEvent] = useState(null)
   const [foodChoices, setFoodChoices] = useState([])
@@ -12,7 +50,7 @@ export default function RsvpPage() {
   const [phone, setPhone] = useState('')
   const [additionalChildren, setAdditionalChildren] = useState([])
   const [submitting, setSubmitting] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -66,12 +104,19 @@ export default function RsvpPage() {
           food_choice_id: Number(child.food_choice_id)
         }))
       ]
-      await apiSend('/api/rsvp', 'POST', {
-        invite_name_entered: mainChildName.trim(),
-        phone: phone.trim(),
-        children
-      })
-      setSuccess(true)
+      await withTimeout(
+        apiSend('/api/rsvp', 'POST', {
+          invite_name_entered: mainChildName.trim(),
+          phone: phone.trim(),
+          children
+        }),
+        15000
+      )
+      setShowSuccessPopup(true)
+      setMainChildName('')
+      setMainFoodChoiceId('')
+      setPhone('')
+      setAdditionalChildren([])
     } catch (err) {
       setError(err.message)
     } finally {
@@ -79,23 +124,12 @@ export default function RsvpPage() {
     }
   }
 
-  if (success) {
-    return (
-      <div className="page rsvp-page">
-        <div className="card">
-          <h1>RSVP received</h1>
-          <p>Thanks for submitting! We will see you at the party.</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="page rsvp-page">
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
-            {event?.title || defaultTitle}
+            {renderTitleWithSmallOrdinal(event?.title || defaultTitle)}
           </h1>
           <div className="event-details muted">
             <p>{event?.event_date || '28 March 2026'}</p>
@@ -209,6 +243,18 @@ export default function RsvpPage() {
             {submitting ? 'Submitting...' : 'Submit RSVP'}
           </button>
         </form>
+
+        {showSuccessPopup && (
+          <div className="popup-overlay" role="dialog" aria-modal="true">
+            <div className="popup-card">
+              <h2>Thank you</h2>
+              <p>Your RSVP has been received.</p>
+              <button type="button" onClick={() => setShowSuccessPopup(false)}>
+                OK
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
