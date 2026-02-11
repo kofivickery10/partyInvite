@@ -354,13 +354,14 @@ button.ghost {
 
 .hero-subtitle {
   margin: 6px 0 0;
-  font-weight: 500;
+  font-weight: 700;
   color: #e2e8f0;
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
 }
 
 .event-details p {
   margin: 0 0 4px;
+  font-weight: 700;
 }
 
 .event-details p:last-child {
