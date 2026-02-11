@@ -3,7 +3,6 @@ import express from 'express'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import nodemailer from 'nodemailer'
 import multer from 'multer'
 import rateLimit from 'express-rate-limit'
 import mysql from 'mysql2/promise'
@@ -21,11 +20,6 @@ const {
   DB_NAME = 'party_invite',
   DB_PORT = 3306,
   JWT_SECRET = 'change_me',
-  SMTP_HOST,
-  SMTP_PORT,
-  SMTP_USER,
-  SMTP_PASS,
-  SMTP_FROM = 'Riley Birthday RSVP <info@willowandriley.co.uk>',
   FRONTEND_ORIGIN = 'http://localhost:5173'
 } = process.env
 
@@ -49,15 +43,6 @@ const rsvpLimiter = rateLimit({
 
 const upload = multer({ storage: multer.memoryStorage() })
 
-const transporter = SMTP_HOST
-  ? nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT || 587),
-      secure: Number(SMTP_PORT) === 465,
-      auth: SMTP_USER ? { user: SMTP_USER, pass: SMTP_PASS } : undefined
-    })
-  : null
-
 const authMiddleware = (req, res, next) => {
   const header = req.headers.authorization
   if (!header) return res.status(401).send('Missing authorization')
@@ -69,26 +54,6 @@ const authMiddleware = (req, res, next) => {
   } catch (err) {
     return res.status(401).send('Invalid token')
   }
-}
-
-const sendRsvpEmail = async (payload, children, foodLabels) => {
-  if (!transporter) return
-  const lines = [
-    `Invited name: ${payload.invite_name_entered}`,
-    `Phone: ${payload.phone}`,
-    '',
-    'Children:'
-  ]
-  children.forEach((child) => {
-    lines.push(`- ${child.child_name} (${foodLabels[child.food_choice_id]})`)
-  })
-
-  await transporter.sendMail({
-    from: SMTP_FROM,
-    to: 'kjvwebdesign@gmail.com',
-    subject: 'New Birthday RSVP',
-    text: lines.join('\n')
-  })
 }
 
 app.get('/api/event', async (req, res) => {
@@ -139,20 +104,6 @@ app.post('/api/rsvp', rsvpLimiter, async (req, res) => {
     }
 
     await connection.commit()
-
-    const [foodRows] = await pool.query(
-      'SELECT id, label FROM food_choices'
-    )
-    const foodLabels = foodRows.reduce((acc, row) => {
-      acc[row.id] = row.label
-      return acc
-    }, {})
-
-    try {
-      await sendRsvpEmail({ invite_name_entered, phone }, children, foodLabels)
-    } catch (emailError) {
-      console.error('Email send failed', emailError)
-    }
 
     res.json({ ok: true })
   } catch (err) {

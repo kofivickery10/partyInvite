@@ -25,7 +25,6 @@ cp backend/.env.example backend/.env
 Set these values in `backend/.env`:
 - `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
 - `JWT_SECRET`
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`
 - `ADMIN_EMAIL=kjvwebdesign@gmail.com`
 - `ADMIN_PASSWORD=Icr347iv3;po-=!`
 - `FRONTEND_ORIGIN=http://localhost:5173`

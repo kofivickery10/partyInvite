@@ -424,6 +424,17 @@ button.ghost {
   margin: 0 auto;
 }
 
+.pitch-form button[type='submit'] {
+  width: 100%;
+  background: #facc15;
+  color: #111827;
+  border-radius: 12px;
+}
+
+.pitch-form button[type='submit']:hover {
+  background: #eab308;
+}
+
 .popup-overlay {
   position: fixed;
   inset: 0;
@@ -613,4 +624,15 @@ label,
   h3 {
     font-size: 1.1rem;
   }
+}
+
+/* Keep green outline on RSVP meta text after global typography rules. */
+.hero .hero-subtitle,
+.hero .event-details p {
+  text-shadow:
+    -1px 0 #1f8f3f,
+    1px 0 #1f8f3f,
+    0 -1px #1f8f3f,
+    0 1px #1f8f3f,
+    0 3px 8px rgba(0, 0, 0, 0.28);
 }
