@@ -80,7 +80,7 @@ export default function RsvpPage() {
 
   if (success) {
     return (
-      <div className="page">
+      <div className="page rsvp-page">
         <div className="card">
           <h1>RSVP received</h1>
           <p>Thanks for submitting! We will see you at the party.</p>
@@ -90,17 +90,16 @@ export default function RsvpPage() {
   }
 
   return (
-    <div className="page">
+    <div className="page rsvp-page">
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
             {event?.title || "Riley's 5th Birthday"}
           </h1>
           <div className="event-details muted">
-            <p><strong>Date:</strong> {event?.event_date || '28 March 2026'}</p>
-            <p><strong>Time:</strong> {event?.party_time || '11am to 1pm'}</p>
+            <p>{event?.event_date || '28 March 2026'}</p>
+            <p>{event?.party_time || '11am to 1pm'}</p>
             <p>
-              <strong>Location:</strong>{' '}
               {event?.location ||
                 'White Rock Primary School, Davies Ave, Paignton TQ4 7AW'}
             </p>
