@@ -236,9 +236,6 @@ export default function RsvpPage() {
           </label>
 
           <div className="children">
-            <div className="children-header">
-              <h2>Additional children</h2>
-            </div>
             <p className="children-helper">
               Add any siblings attending so we can prepare food choices for them too.
             </p>

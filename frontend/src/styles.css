@@ -306,6 +306,7 @@ button.ghost {
   border-radius: 14px;
   padding: 12px;
   margin-top: 6px;
+  color: #111827;
 }
 
 .children .children-header h2 {
@@ -332,11 +333,15 @@ button.ghost {
 
 .children-helper {
   margin: 0 0 16px;
-  color: rgba(75, 85, 99, 0.8);
+  color: #111827;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.5;
   text-shadow: none;
+}
+
+.children .field-error {
+  color: #b91c1c;
 }
 
 .child-row {
@@ -408,9 +413,9 @@ button.ghost {
 
 .hero-subtitle {
   margin: 0 0 16px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
   color: #ffffff;
   text-shadow: none;
   text-align: center;
@@ -432,10 +437,11 @@ button.ghost {
 .pitch-form label {
   text-align: center;
   align-items: center;
+  gap: 6px;
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.2px;
-  margin-top: 14px;
+  margin-top: 10px;
   margin-bottom: 0;
   text-shadow: none;
 }
@@ -448,11 +454,11 @@ button.ghost {
 .pitch-form input,
 .pitch-form select {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.4;
-  padding: 14px 16px;
+  padding: 11px 14px;
   border-radius: 14px;
-  min-height: 50px;
+  min-height: 44px;
 }
 
 .title-center {
@@ -632,7 +638,7 @@ textarea::placeholder {
   }
 
   .pitch-form label {
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .children {
