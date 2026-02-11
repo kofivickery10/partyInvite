@@ -172,8 +172,9 @@ export default function RsvpPage() {
             {renderTitleWithSmallOrdinal(event?.title || defaultTitle)} ⚽
           </h1>
           <div className="event-details muted">
-            <p>{event?.event_date || '28 March 2026'}</p>
-            <p>{event?.party_time || '11am to 1pm'}</p>
+            <p>
+              {event?.event_date || '28 March 2026'} · {event?.party_time || '11am to 1pm'}
+            </p>
             <p>
               {event?.location ||
                 'White Rock Primary School, Davies Ave, Paignton TQ4 7AW'}
