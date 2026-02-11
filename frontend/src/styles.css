@@ -412,6 +412,7 @@ button.ghost {
   font-size: clamp(1.65rem, 5.6vw, 3.2rem);
   line-height: 1.05;
   white-space: nowrap;
+  margin-bottom: 14px;
   text-shadow:
     -1px 0 #1f8f3f,
     1px 0 #1f8f3f,
