@@ -6,9 +6,10 @@ const emptyChild = () => ({ child_name: '', food_choice_id: '' })
 export default function RsvpPage() {
   const [event, setEvent] = useState(null)
   const [foodChoices, setFoodChoices] = useState([])
-  const [inviteName, setInviteName] = useState('')
+  const [mainChildName, setMainChildName] = useState('')
+  const [mainFoodChoiceId, setMainFoodChoiceId] = useState('')
   const [phone, setPhone] = useState('')
-  const [children, setChildren] = useState([emptyChild()])
+  const [additionalChildren, setAdditionalChildren] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -30,24 +31,23 @@ export default function RsvpPage() {
   }, [])
 
   const canSubmit = useMemo(() => {
-    if (!inviteName.trim() || !phone.trim()) return false
-    if (children.length === 0) return false
-    return children.every(
+    if (!mainChildName.trim() || !mainFoodChoiceId || !phone.trim()) return false
+    return additionalChildren.every(
       (child) => child.child_name.trim() && child.food_choice_id
     )
-  }, [inviteName, phone, children])
+  }, [mainChildName, mainFoodChoiceId, phone, additionalChildren])
 
   const onChildChange = (index, key, value) => {
-    setChildren((prev) => {
+    setAdditionalChildren((prev) => {
       const next = [...prev]
       next[index] = { ...next[index], [key]: value }
       return next
     })
   }
 
-  const addChild = () => setChildren((prev) => [...prev, emptyChild()])
+  const addChild = () => setAdditionalChildren((prev) => [...prev, emptyChild()])
   const removeChild = (index) =>
-    setChildren((prev) => prev.filter((_, i) => i !== index))
+    setAdditionalChildren((prev) => prev.filter((_, i) => i !== index))
 
   const submit = async (event) => {
     event.preventDefault()
@@ -55,13 +55,20 @@ export default function RsvpPage() {
     if (!canSubmit) return
     setSubmitting(true)
     try {
-      await apiSend('/api/rsvp', 'POST', {
-        invite_name_entered: inviteName.trim(),
-        phone: phone.trim(),
-        children: children.map((child) => ({
+      const children = [
+        {
+          child_name: mainChildName.trim(),
+          food_choice_id: Number(mainFoodChoiceId)
+        },
+        ...additionalChildren.map((child) => ({
           child_name: child.child_name.trim(),
           food_choice_id: Number(child.food_choice_id)
         }))
+      ]
+      await apiSend('/api/rsvp', 'POST', {
+        invite_name_entered: mainChildName.trim(),
+        phone: phone.trim(),
+        children
       })
       setSuccess(true)
     } catch (err) {
@@ -108,11 +115,26 @@ export default function RsvpPage() {
             Child's name
             <input
               type="text"
-              value={inviteName}
-              onChange={(e) => setInviteName(e.target.value)}
+              value={mainChildName}
+              onChange={(e) => setMainChildName(e.target.value)}
               placeholder="Enter the child's name"
               required
             />
+          </label>
+          <label>
+            Child's food choice
+            <select
+              value={mainFoodChoiceId}
+              onChange={(e) => setMainFoodChoiceId(e.target.value)}
+              required
+            >
+              <option value="">Select food</option>
+              {foodChoices.map((choice) => (
+                <option key={choice.id} value={choice.id}>
+                  {choice.label}
+                </option>
+              ))}
+            </select>
           </label>
 
           <label>
@@ -128,13 +150,13 @@ export default function RsvpPage() {
 
           <div className="children">
             <div className="children-header">
-              <h2>Children attending</h2>
+              <h2>Additional children</h2>
               <button type="button" onClick={addChild} className="ghost">
                 Add child
               </button>
             </div>
 
-            {children.map((child, index) => (
+            {additionalChildren.map((child, index) => (
               <div key={index} className="child-row">
                 <input
                   type="text"
@@ -159,7 +181,7 @@ export default function RsvpPage() {
                     </option>
                   ))}
                 </select>
-                {children.length > 1 && (
+                {additionalChildren.length > 0 && (
                   <button
                     type="button"
                     className="ghost"

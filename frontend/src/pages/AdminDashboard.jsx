@@ -149,16 +149,16 @@ export default function AdminDashboard() {
           <h2>Event details</h2>
           <label>
             Title
-            <input
-              type="text"
+            <textarea
+              rows={2}
               value={event.title}
               onChange={(e) => setEvent({ ...event, title: e.target.value })}
             />
           </label>
           <label>
             Date
-            <input
-              type="text"
+            <textarea
+              rows={2}
               value={event.event_date}
               onChange={(e) =>
                 setEvent({ ...event, event_date: e.target.value })
@@ -167,8 +167,8 @@ export default function AdminDashboard() {
           </label>
           <label>
             Time
-            <input
-              type="text"
+            <textarea
+              rows={2}
               value={event.party_time}
               onChange={(e) =>
                 setEvent({ ...event, party_time: e.target.value })
@@ -178,8 +178,8 @@ export default function AdminDashboard() {
           </label>
           <label>
             Intro text
-            <input
-              type="text"
+            <textarea
+              rows={3}
               value={event.intro_text}
               onChange={(e) =>
                 setEvent({ ...event, intro_text: e.target.value })
@@ -189,8 +189,8 @@ export default function AdminDashboard() {
           </label>
           <label>
             Location
-            <input
-              type="text"
+            <textarea
+              rows={3}
               value={event.location}
               onChange={(e) => setEvent({ ...event, location: e.target.value })}
             />
