@@ -617,7 +617,7 @@ textarea::placeholder {
   }
 
   .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 18px;
     margin-bottom: 12px;
   }
 
@@ -720,7 +720,6 @@ header h1 {
 
 label,
 .muted,
-.hero-subtitle,
 .children-header h2,
 .row,
 .rsvp-card p,
