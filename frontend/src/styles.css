@@ -409,7 +409,7 @@ button.ghost {
 .title-center {
   text-align: center;
   font-weight: 700;
-  font-size: clamp(1.5rem, 5.2vw, 3rem);
+  font-size: clamp(1.65rem, 5.6vw, 3.2rem);
   line-height: 1.05;
   white-space: nowrap;
   text-shadow:
