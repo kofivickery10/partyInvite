@@ -235,16 +235,16 @@ export default function RsvpPage() {
             />
           </label>
 
-            <div className="children">
+          <div className="children">
             <div className="children-header">
               <h2>Additional children</h2>
-              <button type="button" onClick={addChild} className="ghost">
-                Add Another Child
-              </button>
             </div>
             <p className="children-helper">
               Add any siblings attending so we can prepare food choices for them too.
             </p>
+            <button type="button" onClick={addChild} className="ghost add-child-full">
+              + Add Another Child
+            </button>
 
             {additionalChildren.map((child, index) => (
                 <div key={index} className="child-row">

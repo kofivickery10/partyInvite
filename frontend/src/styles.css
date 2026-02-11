@@ -296,6 +296,8 @@ button.ghost {
   font-size: 16px;
   color: #f8fafc;
   margin: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .children {
@@ -315,6 +317,17 @@ button.ghost {
   color: #1f4d3c;
   border-color: #c7d4cc;
   text-shadow: none;
+}
+
+.children .add-child-full {
+  width: 100%;
+  margin-bottom: 12px;
+  background: #f8faf8;
+  border: 1px solid #c7d4cc;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1f4d3c;
 }
 
 .children-helper {
@@ -373,9 +386,9 @@ button.ghost {
 }
 
 .hero {
-  padding-bottom: 18px;
+  padding-bottom: 10px;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .hero-badge {
@@ -398,7 +411,7 @@ button.ghost {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  color: rgba(226, 232, 240, 0.85);
+  color: #ffffff;
   text-shadow: none;
   text-align: center;
 }
