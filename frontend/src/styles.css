@@ -304,8 +304,8 @@ button.ghost {
   background: #ffffff;
   border: 1px solid #dbe3dd;
   border-radius: 14px;
-  padding: 14px;
-  margin-top: 8px;
+  padding: 12px;
+  margin-top: 6px;
 }
 
 .children .children-header h2 {
@@ -321,7 +321,7 @@ button.ghost {
 
 .children .add-child-full {
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   background: #f8faf8;
   border: 1px solid #c7d4cc;
   border-radius: 12px;
@@ -386,9 +386,9 @@ button.ghost {
 }
 
 .hero {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.35);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .hero-badge {
@@ -407,7 +407,7 @@ button.ghost {
 }
 
 .hero-subtitle {
-  margin: 0 0 24px;
+  margin: 0 0 16px;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -435,7 +435,7 @@ button.ghost {
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.2px;
-  margin-top: 20px;
+  margin-top: 14px;
   margin-bottom: 0;
   text-shadow: none;
 }
@@ -494,6 +494,7 @@ button.ghost {
 
 .pitch-form button[type='submit'] {
   width: 100%;
+  margin-top: 12px;
   background: #facc15;
   color: #111827;
   border-radius: 14px;
@@ -511,6 +512,12 @@ button.ghost {
 
 .pitch-form button[type='submit']:disabled {
   opacity: 1;
+}
+
+.pitch-form .children + .error,
+.pitch-form .children + button[type='submit'],
+.pitch-form .error + button[type='submit'] {
+  margin-top: 12px;
 }
 
 .popup-overlay {
@@ -587,6 +594,14 @@ textarea::placeholder {
 }
 
 @media (max-width: 480px) {
+  .page {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 12px 10px;
+  }
+
   .title-center {
     font-size: 24px;
   }
@@ -597,6 +612,7 @@ textarea::placeholder {
 
   .hero-subtitle {
     font-size: 0.95rem;
+    margin-bottom: 12px;
   }
 
   label {
@@ -613,6 +629,18 @@ textarea::placeholder {
   button {
     padding: 10px 14px;
     font-size: 0.95rem;
+  }
+
+  .pitch-form label {
+    margin-top: 12px;
+  }
+
+  .children {
+    padding: 10px;
+  }
+
+  .children-helper {
+    margin-bottom: 10px;
   }
 }
 
