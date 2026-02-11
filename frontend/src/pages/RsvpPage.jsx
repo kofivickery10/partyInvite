@@ -2,6 +2,31 @@ import { useEffect, useMemo, useState } from 'react'
 import { apiGet, apiSend } from '../lib/api.js'
 
 const emptyChild = () => ({ child_name: '', food_choice_id: '' })
+const defaultTitle = "Riley's 5th Birthday"
+
+function CurvedTitle({ text }) {
+  const chars = Array.from(text || defaultTitle)
+  const mid = (chars.length - 1) / 2
+
+  return (
+    <span className="curved-title" aria-label={text || defaultTitle}>
+      {chars.map((char, index) => {
+        const distance = index - mid
+        const y = Math.pow(Math.abs(distance), 2) * 0.22
+        return (
+          <span
+            key={`${char}-${index}`}
+            className="curved-char"
+            style={{ transform: `translateY(${y}px)` }}
+            aria-hidden="true"
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        )
+      })}
+    </span>
+  )
+}
 
 export default function RsvpPage() {
   const [event, setEvent] = useState(null)
@@ -94,7 +119,7 @@ export default function RsvpPage() {
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
-            {event?.title || "Riley's 5th Birthday"}
+            <CurvedTitle text={event?.title || defaultTitle} />
           </h1>
           <div className="event-details muted">
             <p>{event?.event_date || '28 March 2026'}</p>
@@ -121,7 +146,7 @@ export default function RsvpPage() {
             />
           </label>
           <label>
-            Food choice
+            Food Choice
             <select
               value={mainFoodChoiceId}
               onChange={(e) => setMainFoodChoiceId(e.target.value)}
@@ -137,7 +162,7 @@ export default function RsvpPage() {
           </label>
 
           <label>
-            Parent/guardian phone
+            Parent Phone
             <input
               type="tel"
               value={phone}

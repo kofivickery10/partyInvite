@@ -358,6 +358,7 @@ button.ghost {
   font-weight: 700;
   color: #e2e8f0;
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+  text-align: left;
 }
 
 .event-details p {
@@ -370,7 +371,7 @@ button.ghost {
 }
 
 .event-details {
-  text-align: center;
+  text-align: left;
 }
 
 .title-center {
@@ -382,6 +383,17 @@ button.ghost {
     0 1px #000,
     -2px -2px #000,
     2px 2px #000;
+}
+
+.curved-title {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.curved-char {
+  display: inline-block;
+  line-height: 1;
 }
 
 .pitch-form {
