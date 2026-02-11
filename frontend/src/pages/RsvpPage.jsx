@@ -237,7 +237,7 @@ export default function RsvpPage() {
 
           <div className="children">
             <p className="children-helper">
-              Add any siblings attending so we can prepare food choices for them too.
+              Add any siblings attending so we can prepare and luncbox for them too.
             </p>
             <button type="button" onClick={addChild} className="ghost add-child-full">
               + Add Another Child
@@ -302,7 +302,7 @@ export default function RsvpPage() {
             {error && <p className="error">{error}</p>}
 
             <button type="submit" disabled={submitting}>
-              {submitting ? 'Submitting...' : 'Submit RSVP'}
+              {submitting ? '⚽ Submitting...' : '⚽ Submit RSVP'}
             </button>
           </form>
         )}

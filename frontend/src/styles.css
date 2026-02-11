@@ -337,6 +337,7 @@ button.ghost {
   font-weight: 400;
   font-size: 13px;
   line-height: 1.5;
+  text-align: left;
   text-shadow: none;
 }
 
@@ -489,8 +490,8 @@ button.ghost {
 
 .event-location {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.4;
   margin-bottom: 16px;
   color: #ffffff;
 }
