@@ -414,7 +414,7 @@ button.ghost {
 .hero-subtitle {
   margin: 0 0 16px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.4;
   color: #ffffff;
   text-shadow: none;
@@ -437,11 +437,11 @@ button.ghost {
 .pitch-form label {
   text-align: center;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.2px;
-  margin-top: 10px;
+  margin-top: 8px;
   margin-bottom: 0;
   text-shadow: none;
 }
@@ -638,7 +638,7 @@ textarea::placeholder {
   }
 
   .pitch-form label {
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .children {
