@@ -484,6 +484,7 @@ button.ghost {
   font-size: 18px;
   line-height: 1.4;
   margin-bottom: 8px;
+  color: #ffffff;
 }
 
 .event-location {
@@ -491,6 +492,7 @@ button.ghost {
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 16px;
+  color: #ffffff;
 }
 
 .pitch-form {
