@@ -428,7 +428,7 @@ button.ghost {
 }
 
 .event-details p:last-child {
-  margin-bottom: 0;
+  margin-bottom: 32px;
 }
 
 .event-details {
@@ -492,7 +492,7 @@ button.ghost {
   font-weight: 600;
   font-size: 18px;
   line-height: 1.4;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   color: #ffffff;
 }
 
