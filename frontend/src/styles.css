@@ -414,7 +414,7 @@ button.ghost {
 .hero-subtitle {
   margin: 0 0 16px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.4;
   color: #ffffff;
   text-shadow: none;
@@ -488,7 +488,7 @@ button.ghost {
 }
 
 .event-location {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 16px;
@@ -619,7 +619,7 @@ textarea::placeholder {
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 12px;
   }
 
