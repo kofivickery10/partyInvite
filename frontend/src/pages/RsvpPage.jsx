@@ -89,12 +89,15 @@ export default function RsvpPage() {
           <h1 className="title-center">
             {event?.title || "Riley's 5th Birthday"}
           </h1>
-          <p className="muted">
-            {event?.event_date || '28 March 2026'} ·{' '}
-            {(event?.party_time || '11am to 1pm')} ·{' '}
-            {event?.location ||
-              'White Rock Primary School, Davies Ave, Paignton TQ4 7AW'}
-          </p>
+          <div className="event-details muted">
+            <p><strong>Date:</strong> {event?.event_date || '28 March 2026'}</p>
+            <p><strong>Time:</strong> {event?.party_time || '11am to 1pm'}</p>
+            <p>
+              <strong>Location:</strong>{' '}
+              {event?.location ||
+                'White Rock Primary School, Davies Ave, Paignton TQ4 7AW'}
+            </p>
+          </div>
           <p className="hero-subtitle">
             {event?.intro_text || 'Lace up for a footie celebration. Please RSVP below.'}
           </p>

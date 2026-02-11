@@ -339,6 +339,14 @@ button.ghost {
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
 }
 
+.event-details p {
+  margin: 0 0 4px;
+}
+
+.event-details p:last-child {
+  margin-bottom: 0;
+}
+
 .title-center {
   text-align: center;
 }
