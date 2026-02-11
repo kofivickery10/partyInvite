@@ -169,7 +169,7 @@ export default function RsvpPage() {
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
-            {renderTitleWithSmallOrdinal(event?.title || defaultTitle)} ⚽
+            ⚽ {renderTitleWithSmallOrdinal(event?.title || defaultTitle)} ⚽
           </h1>
           <div className="event-details muted">
             <p>
