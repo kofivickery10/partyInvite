@@ -343,32 +343,6 @@ export default function RsvpPage() {
                 <span className="field-error">{fieldErrors.mainFoodChoiceId}</span>
               )}
             </label>
-            <label className="checkbox-label">
-              <span className="checkbox-row">
-                <input
-                  type="checkbox"
-                  checked={mainHasDietaryRequirements}
-                  onChange={(e) => setMainHasDietaryRequirements(e.target.checked)}
-                />
-                Has allergies or dietary requirements
-              </span>
-            </label>
-            {mainHasDietaryRequirements && (
-              <label>
-                <span className="label-title">Tell us what it is</span>
-                <input
-                  type="text"
-                  value={mainDietaryRequirements}
-                  onChange={(e) => setMainDietaryRequirements(e.target.value)}
-                  placeholder="e.g. nut allergy, vegetarian"
-                  className={fieldErrors.mainDietaryRequirements ? 'input-invalid' : ''}
-                />
-                {fieldErrors.mainDietaryRequirements && (
-                  <span className="field-error">{fieldErrors.mainDietaryRequirements}</span>
-                )}
-              </label>
-            )}
-
             <label>
               <span className="label-title">Parent Phone</span>
               <input
@@ -381,10 +355,35 @@ export default function RsvpPage() {
               placeholder="07xxxx"
             />
           </label>
+          <label className="checkbox-label">
+            <span className="checkbox-row">
+              <input
+                type="checkbox"
+                checked={mainHasDietaryRequirements}
+                onChange={(e) => setMainHasDietaryRequirements(e.target.checked)}
+              />
+              Allergies or dietary requirements
+            </span>
+          </label>
+          {mainHasDietaryRequirements && (
+            <label>
+              <span className="label-title">Tell us what it is</span>
+              <input
+                type="text"
+                value={mainDietaryRequirements}
+                onChange={(e) => setMainDietaryRequirements(e.target.value)}
+                placeholder="e.g. nut allergy, vegetarian"
+                className={fieldErrors.mainDietaryRequirements ? 'input-invalid' : ''}
+              />
+              {fieldErrors.mainDietaryRequirements && (
+                <span className="field-error">{fieldErrors.mainDietaryRequirements}</span>
+              )}
+            </label>
+          )}
 
           <div className="children">
             <p className="children-helper">
-              Add any siblings attending so we can prepare a lunchbox for them too.
+              Any siblings attending that need a lunchbox too
             </p>
             <button type="button" onClick={addChild} className="ghost add-child-full">
               + Add Another Child
@@ -436,7 +435,7 @@ export default function RsvpPage() {
                           )
                         }
                       />
-                      Has allergies or dietary requirements
+                      Allergies or dietary requirements
                     </span>
                   </label>
                   {child.has_dietary_requirements && (
