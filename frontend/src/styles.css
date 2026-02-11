@@ -367,12 +367,7 @@ button.ghost {
   font-weight: 600;
   font-size: 0.95rem;
   color: #e2e8f0;
-  text-shadow:
-    -1px 0 #1f8f3f,
-    1px 0 #1f8f3f,
-    0 -1px #1f8f3f,
-    0 1px #1f8f3f,
-    0 3px 8px rgba(0, 0, 0, 0.28);
+  text-shadow: none;
   text-align: center;
 }
 
@@ -380,12 +375,7 @@ button.ghost {
   margin: 0 0 4px;
   font-weight: 700;
   font-size: 1.1rem;
-  text-shadow:
-    -1px 0 #1f8f3f,
-    1px 0 #1f8f3f,
-    0 -1px #1f8f3f,
-    0 1px #1f8f3f,
-    0 3px 8px rgba(0, 0, 0, 0.28);
+  text-shadow: none;
 }
 
 .event-details p:last-child {
@@ -648,15 +638,4 @@ label,
   h3 {
     font-size: 1.1rem;
   }
-}
-
-/* Keep green outline on RSVP meta text after global typography rules. */
-.hero .hero-subtitle,
-.hero .event-details p {
-  text-shadow:
-    -1px 0 #1f8f3f,
-    1px 0 #1f8f3f,
-    0 -1px #1f8f3f,
-    0 1px #1f8f3f,
-    0 3px 8px rgba(0, 0, 0, 0.28);
 }
