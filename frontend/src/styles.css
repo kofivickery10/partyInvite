@@ -428,13 +428,17 @@ button.ghost {
   text-align: center;
 }
 
+.intro-highlight {
+  color: #facc15;
+}
+
 .event-details p {
   margin: 0;
   text-shadow: none;
 }
 
 .event-details p:last-child {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .event-details {
@@ -498,7 +502,7 @@ button.ghost {
   font-weight: 600;
   font-size: 18px;
   line-height: 1.4;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: #ffffff;
 }
 

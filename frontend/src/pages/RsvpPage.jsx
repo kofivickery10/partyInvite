@@ -90,6 +90,22 @@ function toIcsDate(date) {
   return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
 }
 
+function renderIntroText(introText) {
+  const text = introText || defaultIntro
+  const parts = text.split(/(22nd\s+march)/i)
+  if (parts.length === 1) return text
+
+  return parts.map((part, index) =>
+    /22nd\s+march/i.test(part) ? (
+      <span key={index} className="intro-highlight">
+        {part}
+      </span>
+    ) : (
+      <span key={index}>{part}</span>
+    )
+  )
+}
+
 export default function RsvpPage() {
   const [event, setEvent] = useState(null)
   const [foodChoices, setFoodChoices] = useState([])
@@ -301,9 +317,7 @@ export default function RsvpPage() {
               {event?.location || defaultLocation}
             </p>
           </div>
-          <p className="hero-subtitle">
-            {event?.intro_text || defaultIntro}
-          </p>
+          <p className="hero-subtitle">{renderIntroText(event?.intro_text)}</p>
         </header>
 
         {!submittedThisSession && (
