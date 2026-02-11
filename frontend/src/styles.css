@@ -7,6 +7,7 @@
   --text-lg: 1.125rem;
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
+  --text-outline: -1px 0 #000, 1px 0 #000, 0 -1px #000, 0 1px #000;
   font-family: var(--font-family-base);
   line-height: 1.5;
   font-weight: 400;
@@ -452,6 +453,16 @@ select,
 textarea {
   font-family: var(--font-family-base);
   font-size: var(--text-md);
+  text-shadow: var(--text-outline);
+}
+
+input,
+select,
+textarea,
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  text-shadow: none;
 }
 
 h1,
@@ -487,6 +498,7 @@ label,
 .rsvp-card p,
 .rsvp-card li {
   font-size: var(--text-md);
+  text-shadow: var(--text-outline);
 }
 
 .admin-card h1 {
