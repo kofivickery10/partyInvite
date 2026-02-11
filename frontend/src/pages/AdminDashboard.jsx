@@ -269,6 +269,9 @@ export default function AdminDashboard() {
                 {rsvp.children.map((child) => (
                   <li key={child.id}>
                     {child.child_name} — {child.food_choice_label}
+                    {child.has_dietary_requirements && child.dietary_requirements
+                      ? ` — Dietary: ${child.dietary_requirements}`
+                      : ''}
                   </li>
                 ))}
               </ul>

@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS rsvp_children (
   rsvp_id INT NOT NULL,
   child_name VARCHAR(255) NOT NULL,
   food_choice_id INT NOT NULL,
+  has_dietary_requirements BOOLEAN NOT NULL DEFAULT FALSE,
+  dietary_requirements VARCHAR(500) NULL,
   FOREIGN KEY (rsvp_id) REFERENCES rsvps(id) ON DELETE CASCADE,
   FOREIGN KEY (food_choice_id) REFERENCES food_choices(id) ON DELETE RESTRICT
 );

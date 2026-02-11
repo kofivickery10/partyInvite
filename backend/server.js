@@ -81,7 +81,8 @@ app.post('/api/rsvp', rsvpLimiter, async (req, res) => {
       (child) =>
         !child.child_name ||
         !child.food_choice_id ||
-        Number.isNaN(Number(child.food_choice_id))
+        Number.isNaN(Number(child.food_choice_id)) ||
+        (child.has_dietary_requirements && !String(child.dietary_requirements || '').trim())
     )
   ) {
     return res.status(400).send('Invalid child entries')
@@ -98,8 +99,18 @@ app.post('/api/rsvp', rsvpLimiter, async (req, res) => {
 
     for (const child of children) {
       await connection.query(
-        'INSERT INTO rsvp_children (rsvp_id, child_name, food_choice_id) VALUES (?, ?, ?)',
-        [rsvpId, child.child_name, child.food_choice_id]
+        `INSERT INTO rsvp_children
+          (rsvp_id, child_name, food_choice_id, has_dietary_requirements, dietary_requirements)
+         VALUES (?, ?, ?, ?, ?)`,
+        [
+          rsvpId,
+          child.child_name,
+          child.food_choice_id,
+          child.has_dietary_requirements ? 1 : 0,
+          child.has_dietary_requirements
+            ? String(child.dietary_requirements || '').trim()
+            : null
+        ]
       )
     }
 
@@ -188,8 +199,21 @@ app.put('/api/admin/food-choices/:id', authMiddleware, async (req, res) => {
 
 app.delete('/api/admin/food-choices/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
-  await pool.query('DELETE FROM food_choices WHERE id = ?', [id])
-  res.json({ ok: true })
+  try {
+    await pool.query('DELETE FROM food_choices WHERE id = ?', [id])
+    res.json({ ok: true })
+  } catch (err) {
+    // FK constraint: choice already used on at least one RSVP child row.
+    if (err?.code === 'ER_ROW_IS_REFERENCED_2') {
+      return res
+        .status(400)
+        .send(
+          'Cannot delete this food choice because it is already used in RSVP data. Deactivate it instead.'
+        )
+    }
+    console.error('Delete food choice failed', err)
+    res.status(500).send('Failed to delete food choice')
+  }
 })
 
 app.get('/api/admin/invites', authMiddleware, async (req, res) => {

@@ -282,6 +282,12 @@ button.ghost {
   color: #15803d;
   padding: 10px 12px;
   border-radius: 10px;
+  font-family: 'Poppins', var(--font-family-base);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-shadow: none;
+  text-align: center;
 }
 
 .children-header {
@@ -556,6 +562,27 @@ button.ghost {
   text-shadow: none;
 }
 
+.calendar-actions {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+
+.calendar-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 42px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: none;
+}
+
 .required-mark {
   color: #f8fafc;
   margin-left: 2px;
@@ -566,6 +593,31 @@ button.ghost {
   align-items: center;
   margin-bottom: 6px;
   text-shadow: none;
+}
+
+.checkbox-label {
+  margin-top: 8px !important;
+}
+
+.checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8fafc;
+  text-shadow: none;
+}
+
+.children .checkbox-row {
+  color: #111827;
+}
+
+.checkbox-row input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  min-height: auto;
+  margin: 0;
 }
 
 .placeholder-select {
