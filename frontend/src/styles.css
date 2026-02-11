@@ -367,7 +367,11 @@ button.ghost {
   font-weight: 600;
   font-size: 0.95rem;
   color: #e2e8f0;
-  text-shadow: none;
+  text-shadow:
+    -1px 0 #000,
+    1px 0 #000,
+    0 -1px #000,
+    0 1px #000;
   text-align: center;
 }
 
@@ -375,7 +379,11 @@ button.ghost {
   margin: 0 0 4px;
   font-weight: 700;
   font-size: 1.1rem;
-  text-shadow: none;
+  text-shadow:
+    -1px 0 #000,
+    1px 0 #000,
+    0 -1px #000,
+    0 1px #000;
 }
 
 .event-details p:last-child {
