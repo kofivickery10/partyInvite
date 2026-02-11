@@ -112,7 +112,9 @@ export default function RsvpPage() {
 
         <form onSubmit={submit} className="pitch-form">
           <label>
-            Child's Name
+            <span className="label-title">
+              Child's Name <span className="required-mark">*</span>
+            </span>
             <input
               type="text"
               value={mainChildName}
@@ -122,9 +124,12 @@ export default function RsvpPage() {
             />
           </label>
           <label>
-            Food Choice
+            <span className="label-title">
+              Food Choice <span className="required-mark">*</span>
+            </span>
             <select
               value={mainFoodChoiceId}
+              className={mainFoodChoiceId ? '' : 'placeholder-select'}
               onChange={(e) => setMainFoodChoiceId(e.target.value)}
               required
             >
@@ -141,6 +146,9 @@ export default function RsvpPage() {
             Parent Phone
             <input
               type="tel"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              autoComplete="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="07xxxx"
@@ -169,6 +177,7 @@ export default function RsvpPage() {
                 />
                 <select
                   value={child.food_choice_id}
+                  className={child.food_choice_id ? '' : 'placeholder-select'}
                   onChange={(e) =>
                     onChildChange(index, 'food_choice_id', e.target.value)
                   }
