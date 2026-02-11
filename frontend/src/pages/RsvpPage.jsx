@@ -314,7 +314,7 @@ export default function RsvpPage() {
             <p className="event-date">{event?.event_date || '28 March 2026'}</p>
             <p className="event-time">{event?.party_time || defaultTime}</p>
             <p className="event-location">
-              {event?.location || defaultLocation}
+              📍 {event?.location || defaultLocation}
             </p>
           </div>
           <p className="hero-subtitle">{renderIntroText(event?.intro_text)}</p>
