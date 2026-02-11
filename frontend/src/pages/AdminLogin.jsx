@@ -28,8 +28,8 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="page">
-      <div className="card">
+    <div className="page admin-page">
+      <div className="card admin-card admin-login-card">
         <h1>Admin login</h1>
         <form onSubmit={login}>
           <label>

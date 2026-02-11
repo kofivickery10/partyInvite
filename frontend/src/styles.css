@@ -113,7 +113,68 @@ body {
 }
 
 .admin-card {
+  background: #0b1018;
+  border: 1px solid #2b3548;
+  border-radius: 16px;
+  padding: 24px;
   padding-bottom: 48px;
+  color: #e5e7eb;
+}
+
+.admin-login-card {
+  max-width: 520px;
+  margin-top: 48px;
+}
+
+.admin-card h1,
+.admin-card h2,
+.admin-card h3,
+.admin-card p,
+.admin-card span,
+.admin-card strong,
+.admin-card li {
+  color: #f3f4f6;
+}
+
+.admin-card section {
+  background: #121a26;
+  border: 1px solid #2a3548;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.admin-card .row {
+  border-bottom: 1px solid #314055;
+}
+
+.admin-card .rsvp-card {
+  border: 1px solid #36455c;
+  background: #0f1722;
+}
+
+.admin-card .muted {
+  color: #cbd5e1;
+}
+
+.admin-card label {
+  color: #e5e7eb;
+}
+
+.admin-card input,
+.admin-card select {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.admin-card button.ghost {
+  border: 1px solid #5d708e;
+  color: #e5e7eb;
+}
+
+.admin-card button.ghost:hover {
+  background: rgba(148, 163, 184, 0.14);
 }
 
 
