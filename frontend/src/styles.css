@@ -429,6 +429,7 @@ button.ghost {
   background: #facc15;
   color: #111827;
   border-radius: 12px;
+  text-shadow: none;
 }
 
 .pitch-form button[type='submit']:hover {

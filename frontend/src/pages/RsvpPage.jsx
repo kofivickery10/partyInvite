@@ -194,7 +194,7 @@ export default function RsvpPage() {
             <div className="children-header">
               <h2>Additional children</h2>
               <button type="button" onClick={addChild} className="ghost">
-                Add child
+                Add Another Child
               </button>
             </div>
 
