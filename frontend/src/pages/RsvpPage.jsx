@@ -111,7 +111,7 @@ export default function RsvpPage() {
 
         <form onSubmit={submit} className="pitch-form">
           <label>
-            Child's name
+            Child's Name
             <input
               type="text"
               value={mainChildName}
@@ -121,7 +121,7 @@ export default function RsvpPage() {
             />
           </label>
           <label>
-            Child's food choice
+            Food choice
             <select
               value={mainFoodChoiceId}
               onChange={(e) => setMainFoodChoiceId(e.target.value)}
