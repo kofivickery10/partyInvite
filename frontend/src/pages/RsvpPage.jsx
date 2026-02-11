@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { apiGet, apiSend } from '../lib/api.js'
 
 const emptyChild = () => ({ child_name: '', food_choice_id: '' })
@@ -51,7 +51,14 @@ export default function RsvpPage() {
   const [additionalChildren, setAdditionalChildren] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const [showSuccessPopup, setShowSuccessPopup] = useState(false)
+  const [submittedThisSession, setSubmittedThisSession] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({
+    mainChildName: '',
+    mainFoodChoiceId: '',
+    phone: '',
+    additionalChildren: []
+  })
 
   useEffect(() => {
     const load = async () => {
@@ -69,12 +76,39 @@ export default function RsvpPage() {
     load()
   }, [])
 
-  const canSubmit = useMemo(() => {
-    if (!mainChildName.trim() || !mainFoodChoiceId || !phone.trim()) return false
-    return additionalChildren.every(
-      (child) => child.child_name.trim() && child.food_choice_id
+  const validateForm = () => {
+    const errors = {
+      mainChildName: '',
+      mainFoodChoiceId: '',
+      phone: '',
+      additionalChildren: additionalChildren.map(() => ({
+        child_name: '',
+        food_choice_id: ''
+      }))
+    }
+
+    if (!mainChildName.trim()) errors.mainChildName = "Child's Name is required."
+    if (!mainFoodChoiceId) errors.mainFoodChoiceId = 'Food Choice is required.'
+    if (!phone.trim()) errors.phone = 'Parent Phone is required.'
+
+    additionalChildren.forEach((child, index) => {
+      if (!child.child_name.trim()) {
+        errors.additionalChildren[index].child_name = 'Child name is required.'
+      }
+      if (!child.food_choice_id) {
+        errors.additionalChildren[index].food_choice_id = 'Food choice is required.'
+      }
+    })
+
+    return errors
+  }
+
+  const hasValidationErrors = (errors) => {
+    if (errors.mainChildName || errors.mainFoodChoiceId || errors.phone) return true
+    return errors.additionalChildren.some(
+      (child) => child.child_name || child.food_choice_id
     )
-  }, [mainChildName, mainFoodChoiceId, phone, additionalChildren])
+  }
 
   const onChildChange = (index, key, value) => {
     setAdditionalChildren((prev) => {
@@ -91,7 +125,10 @@ export default function RsvpPage() {
   const submit = async (event) => {
     event.preventDefault()
     setError('')
-    if (!canSubmit) return
+    const errors = validateForm()
+    setFieldErrors(errors)
+    if (hasValidationErrors(errors)) return
+
     setSubmitting(true)
     try {
       const children = [
@@ -112,11 +149,18 @@ export default function RsvpPage() {
         }),
         15000
       )
+      setSubmittedThisSession(true)
       setShowSuccessPopup(true)
       setMainChildName('')
       setMainFoodChoiceId('')
       setPhone('')
       setAdditionalChildren([])
+      setFieldErrors({
+        mainChildName: '',
+        mainFoodChoiceId: '',
+        phone: '',
+        additionalChildren: []
+      })
     } catch (err) {
       setError(err.message)
     } finally {
@@ -129,7 +173,7 @@ export default function RsvpPage() {
       <div className="card">
         <header className="hero">
           <h1 className="title-center">
-            {renderTitleWithSmallOrdinal(event?.title || defaultTitle)}
+            {renderTitleWithSmallOrdinal(event?.title || defaultTitle)} ⚽
           </h1>
           <div className="event-details muted">
             <p>{event?.event_date || '28 March 2026'}</p>
@@ -144,105 +188,138 @@ export default function RsvpPage() {
           </p>
         </header>
 
-        <form onSubmit={submit} className="pitch-form">
-          <label>
-            <span className="label-title">
-              Child's Name <span className="required-mark">*</span>
-            </span>
-            <input
-              type="text"
-              value={mainChildName}
-              onChange={(e) => setMainChildName(e.target.value)}
-              placeholder="Enter the child's name"
-              required
-            />
-          </label>
-          <label>
-            <span className="label-title">
-              Food Choice <span className="required-mark">*</span>
-            </span>
-            <select
-              value={mainFoodChoiceId}
-              className={mainFoodChoiceId ? '' : 'placeholder-select'}
-              onChange={(e) => setMainFoodChoiceId(e.target.value)}
-              required
-            >
-              <option value="">Select food</option>
-              {foodChoices.map((choice) => (
-                <option key={choice.id} value={choice.id}>
-                  {choice.label}
-                </option>
+        {!submittedThisSession && (
+          <form onSubmit={submit} className="pitch-form" noValidate>
+            <label>
+              <span className="label-title">
+                Child's Name <span className="required-mark">*</span>
+              </span>
+              <input
+                type="text"
+                value={mainChildName}
+                onChange={(e) => setMainChildName(e.target.value)}
+                placeholder="Enter the child's name"
+                className={fieldErrors.mainChildName ? 'input-invalid' : ''}
+              />
+              {fieldErrors.mainChildName && (
+                <span className="field-error">{fieldErrors.mainChildName}</span>
+              )}
+            </label>
+            <label>
+              <span className="label-title">
+                Food Choice <span className="required-mark">*</span>
+              </span>
+              <select
+                value={mainFoodChoiceId}
+                className={`${mainFoodChoiceId ? '' : 'placeholder-select'} ${fieldErrors.mainFoodChoiceId ? 'input-invalid' : ''}`.trim()}
+                onChange={(e) => setMainFoodChoiceId(e.target.value)}
+              >
+                <option value="">Select food</option>
+                {foodChoices.map((choice) => (
+                  <option key={choice.id} value={choice.id}>
+                    {choice.label}
+                  </option>
+                ))}
+              </select>
+              {fieldErrors.mainFoodChoiceId && (
+                <span className="field-error">{fieldErrors.mainFoodChoiceId}</span>
+              )}
+            </label>
+
+            <label>
+              Parent Phone
+              <input
+                type="tel"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                autoComplete="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="07xxxx"
+                className={fieldErrors.phone ? 'input-invalid' : ''}
+              />
+              {fieldErrors.phone && (
+                <span className="field-error">{fieldErrors.phone}</span>
+              )}
+            </label>
+
+            <div className="children">
+              <div className="children-header">
+                <h2>Additional children</h2>
+                <button type="button" onClick={addChild} className="ghost">
+                  Add Another Child
+                </button>
+              </div>
+
+              {additionalChildren.map((child, index) => (
+                <div key={index} className="child-row">
+                  <input
+                    type="text"
+                    placeholder="Child name"
+                    value={child.child_name}
+                    onChange={(e) =>
+                      onChildChange(index, 'child_name', e.target.value)
+                    }
+                    className={
+                      fieldErrors.additionalChildren[index]?.child_name
+                        ? 'input-invalid'
+                        : ''
+                    }
+                  />
+                  <select
+                    value={child.food_choice_id}
+                    className={`${child.food_choice_id ? '' : 'placeholder-select'} ${
+                      fieldErrors.additionalChildren[index]?.food_choice_id
+                        ? 'input-invalid'
+                        : ''
+                    }`.trim()}
+                    onChange={(e) =>
+                      onChildChange(index, 'food_choice_id', e.target.value)
+                    }
+                  >
+                    <option value="">Select food</option>
+                    {foodChoices.map((choice) => (
+                      <option key={choice.id} value={choice.id}>
+                        {choice.label}
+                      </option>
+                    ))}
+                  </select>
+                  {additionalChildren.length > 0 && (
+                    <button
+                      type="button"
+                      className="ghost"
+                      onClick={() => removeChild(index)}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
               ))}
-            </select>
-          </label>
-
-          <label>
-            Parent Phone
-            <input
-              type="tel"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              autoComplete="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="07xxxx"
-              required
-            />
-          </label>
-
-          <div className="children">
-            <div className="children-header">
-              <h2>Additional children</h2>
-              <button type="button" onClick={addChild} className="ghost">
-                Add Another Child
-              </button>
+              {fieldErrors.additionalChildren.map((childError, index) => (
+                (childError.child_name || childError.food_choice_id) && (
+                  <p key={`child-error-${index}`} className="field-error">
+                    Additional child {index + 1}:{' '}
+                    {[childError.child_name, childError.food_choice_id]
+                      .filter(Boolean)
+                      .join(' ')}
+                  </p>
+                )
+              ))}
             </div>
 
-            {additionalChildren.map((child, index) => (
-              <div key={index} className="child-row">
-                <input
-                  type="text"
-                  placeholder="Child name"
-                  value={child.child_name}
-                  onChange={(e) =>
-                    onChildChange(index, 'child_name', e.target.value)
-                  }
-                  required
-                />
-                <select
-                  value={child.food_choice_id}
-                  className={child.food_choice_id ? '' : 'placeholder-select'}
-                  onChange={(e) =>
-                    onChildChange(index, 'food_choice_id', e.target.value)
-                  }
-                  required
-                >
-                  <option value="">Select food</option>
-                  {foodChoices.map((choice) => (
-                    <option key={choice.id} value={choice.id}>
-                      {choice.label}
-                    </option>
-                  ))}
-                </select>
-                {additionalChildren.length > 0 && (
-                  <button
-                    type="button"
-                    className="ghost"
-                    onClick={() => removeChild(index)}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+            {error && <p className="error">{error}</p>}
 
-          {error && <p className="error">{error}</p>}
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Submitting...' : 'Submit RSVP'}
+            </button>
+          </form>
+        )}
 
-          <button type="submit" disabled={!canSubmit || submitting}>
-            {submitting ? 'Submitting...' : 'Submit RSVP'}
-          </button>
-        </form>
+        {submittedThisSession && !showSuccessPopup && (
+          <p className="success">
+            RSVP submitted. Reload the page to submit another response.
+          </p>
+        )}
 
         {showSuccessPopup && (
           <div className="popup-overlay" role="dialog" aria-modal="true">

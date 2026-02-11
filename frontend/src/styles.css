@@ -364,7 +364,8 @@ button.ghost {
 
 .hero-subtitle {
   margin: 6px 0 0;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.95rem;
   color: #e2e8f0;
   text-shadow:
     -1px 0 #1f8f3f,
@@ -406,6 +407,9 @@ button.ghost {
 
 .title-center {
   text-align: center;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 1.05;
   text-shadow:
     -1px 0 #1f8f3f,
     1px 0 #1f8f3f,
@@ -434,6 +438,10 @@ button.ghost {
 
 .pitch-form button[type='submit']:hover {
   background: #eab308;
+}
+
+.pitch-form button[type='submit']:disabled {
+  opacity: 1;
 }
 
 .popup-overlay {
@@ -479,6 +487,18 @@ button.ghost {
 
 .placeholder-select option {
   color: #0f172a;
+}
+
+.input-invalid {
+  border: 2px solid #dc2626 !important;
+}
+
+.field-error {
+  margin-top: 4px;
+  color: #fecaca;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-shadow: none;
 }
 
 input,
