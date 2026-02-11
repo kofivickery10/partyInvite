@@ -4,7 +4,13 @@ import { apiGet, apiSend, apiUpload } from '../lib/api.js'
 
 export default function AdminDashboard() {
   const [token, setToken] = useState(localStorage.getItem('adminToken'))
-  const [event, setEvent] = useState({ title: '', event_date: '', location: '' })
+  const [event, setEvent] = useState({
+    title: '',
+    event_date: '',
+    party_time: '',
+    intro_text: '',
+    location: ''
+  })
   const [foodChoices, setFoodChoices] = useState([])
   const [metrics, setMetrics] = useState({ invited: 0, rsvps: 0, foodTotals: [] })
   const [rsvps, setRsvps] = useState([])
@@ -157,6 +163,28 @@ export default function AdminDashboard() {
               onChange={(e) =>
                 setEvent({ ...event, event_date: e.target.value })
               }
+            />
+          </label>
+          <label>
+            Time
+            <input
+              type="text"
+              value={event.party_time}
+              onChange={(e) =>
+                setEvent({ ...event, party_time: e.target.value })
+              }
+              placeholder="11am to 1pm"
+            />
+          </label>
+          <label>
+            Intro text
+            <input
+              type="text"
+              value={event.intro_text}
+              onChange={(e) =>
+                setEvent({ ...event, intro_text: e.target.value })
+              }
+              placeholder="Lace up for a footie celebration. Please RSVP below."
             />
           </label>
           <label>

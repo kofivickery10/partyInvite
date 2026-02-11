@@ -190,13 +190,13 @@ app.get('/api/admin/event', authMiddleware, async (req, res) => {
 })
 
 app.put('/api/admin/event', authMiddleware, async (req, res) => {
-  const { title, event_date, location } = req.body || {}
-  if (!title || !event_date || !location) {
+  const { title, event_date, party_time, intro_text, location } = req.body || {}
+  if (!title || !event_date || !party_time || !intro_text || !location) {
     return res.status(400).send('Missing event details')
   }
   await pool.query(
-    'UPDATE event_settings SET title = ?, event_date = ?, location = ? WHERE id = 1',
-    [title, event_date, location]
+    'UPDATE event_settings SET title = ?, event_date = ?, party_time = ?, intro_text = ?, location = ? WHERE id = 1',
+    [title, event_date, party_time, intro_text, location]
   )
   const [rows] = await pool.query('SELECT * FROM event_settings WHERE id = 1')
   res.json(rows[0])

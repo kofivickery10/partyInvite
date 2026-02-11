@@ -9,9 +9,17 @@ CREATE TABLE IF NOT EXISTS event_settings (
   id INT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   event_date VARCHAR(255) NOT NULL,
+  party_time VARCHAR(255) NOT NULL DEFAULT '11am to 1pm',
+  intro_text VARCHAR(500) NOT NULL DEFAULT 'Lace up for a footie celebration. Please RSVP below.',
   location VARCHAR(255) NOT NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+ALTER TABLE event_settings
+ADD COLUMN IF NOT EXISTS party_time VARCHAR(255) NOT NULL DEFAULT '11am to 1pm';
+
+ALTER TABLE event_settings
+ADD COLUMN IF NOT EXISTS intro_text VARCHAR(500) NOT NULL DEFAULT 'Lace up for a footie celebration. Please RSVP below.';
 
 CREATE TABLE IF NOT EXISTS food_choices (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,8 +52,8 @@ CREATE TABLE IF NOT EXISTS rsvp_children (
   FOREIGN KEY (food_choice_id) REFERENCES food_choices(id) ON DELETE RESTRICT
 );
 
-INSERT INTO event_settings (id, title, event_date, location)
-VALUES (1, 'Riley''s 5th Birthday', '28 March 2026', 'White Rock Primary School, Davies Ave, Paignton TQ4 7AW')
+INSERT INTO event_settings (id, title, event_date, party_time, intro_text, location)
+VALUES (1, 'Riley''s 5th Birthday', '28 March 2026', '11am to 1pm', 'Lace up for a footie celebration. Please RSVP below.', 'White Rock Primary School, Davies Ave, Paignton TQ4 7AW')
 ON DUPLICATE KEY UPDATE id = id;
 
 INSERT INTO food_choices (label, active)
