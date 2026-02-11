@@ -172,10 +172,9 @@ export default function RsvpPage() {
             ⚽ {renderTitleWithSmallOrdinal(event?.title || defaultTitle)} ⚽
           </h1>
           <div className="event-details muted">
-            <p>
-              {event?.event_date || '28 March 2026'} · {event?.party_time || '11am to 1pm'}
-            </p>
-            <p>
+            <p className="event-date">{event?.event_date || '28 March 2026'}</p>
+            <p className="event-time">{event?.party_time || '11am to 1pm'}</p>
+            <p className="event-location">
               {event?.location ||
                 'White Rock Primary School, Davies Ave, Paignton TQ4 7AW'}
             </p>
@@ -224,7 +223,7 @@ export default function RsvpPage() {
             </label>
 
             <label>
-              Parent Phone
+              <span className="label-title">Parent Phone</span>
               <input
                 type="tel"
                 inputMode="numeric"
@@ -237,14 +236,17 @@ export default function RsvpPage() {
           </label>
 
             <div className="children">
-              <div className="children-header">
-                <h2>Additional children</h2>
-                <button type="button" onClick={addChild} className="ghost">
-                  Add Another Child
-                </button>
-              </div>
+            <div className="children-header">
+              <h2>Additional children</h2>
+              <button type="button" onClick={addChild} className="ghost">
+                Add Another Child
+              </button>
+            </div>
+            <p className="children-helper">
+              Add any siblings attending so we can prepare food choices for them too.
+            </p>
 
-              {additionalChildren.map((child, index) => (
+            {additionalChildren.map((child, index) => (
                 <div key={index} className="child-row">
                   <input
                     type="text"

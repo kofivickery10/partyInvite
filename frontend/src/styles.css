@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 :root {
   color-scheme: light;
   --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -286,13 +288,42 @@ button.ghost {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .children-header h2 {
-  font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 16px;
   color: #f8fafc;
   margin: 0;
+}
+
+.children {
+  background: #ffffff;
+  border: 1px solid #dbe3dd;
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 8px;
+}
+
+.children .children-header h2 {
+  color: #1f2937;
+  text-shadow: none;
+}
+
+.children .ghost {
+  color: #1f4d3c;
+  border-color: #c7d4cc;
+  text-shadow: none;
+}
+
+.children-helper {
+  margin: 0 0 16px;
+  color: rgba(75, 85, 99, 0.8);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  text-shadow: none;
 }
 
 .child-row {
@@ -363,27 +394,18 @@ button.ghost {
 }
 
 .hero-subtitle {
-  margin: 6px 0 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #e2e8f0;
-  text-shadow:
-    -1px 0 #000,
-    1px 0 #000,
-    0 -1px #000,
-    0 1px #000;
+  margin: 0 0 24px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.85);
+  text-shadow: none;
   text-align: center;
 }
 
 .event-details p {
-  margin: 0 0 4px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-shadow:
-    -1px 0 #000,
-    1px 0 #000,
-    0 -1px #000,
-    0 1px #000;
+  margin: 0;
+  text-shadow: none;
 }
 
 .event-details p:last-child {
@@ -397,6 +419,12 @@ button.ghost {
 .pitch-form label {
   text-align: center;
   align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  text-shadow: none;
 }
 
 .pitch-form label input,
@@ -404,24 +432,46 @@ button.ghost {
   width: 100%;
 }
 
+.pitch-form input,
+.pitch-form select {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 14px 16px;
+  border-radius: 14px;
+  min-height: 50px;
+}
+
 .title-center {
   text-align: center;
   font-weight: 700;
-  font-size: clamp(1.65rem, 5.6vw, 3.2rem);
-  line-height: 1.05;
+  font-family: 'Poppins', var(--font-family-base);
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
   white-space: nowrap;
-  margin-bottom: 24px;
-  text-shadow:
-    -1px 0 #1f8f3f,
-    1px 0 #1f8f3f,
-    0 -1px #1f8f3f,
-    0 1px #1f8f3f,
-    0 3px 8px rgba(0, 0, 0, 0.28);
+  margin-bottom: 16px;
+  text-shadow: none;
 }
 
 .ordinal-suffix {
   font-size: 0.55em;
   vertical-align: super;
+}
+
+.event-date,
+.event-time {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.event-location {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
 .pitch-form {
@@ -433,8 +483,13 @@ button.ghost {
   width: 100%;
   background: #facc15;
   color: #111827;
-  border-radius: 12px;
+  border-radius: 14px;
   text-shadow: none;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.3px;
+  min-height: 54px;
+  padding: 16px 20px;
 }
 
 .pitch-form button[type='submit']:hover {
@@ -480,6 +535,8 @@ button.ghost {
 .label-title {
   display: inline-flex;
   align-items: center;
+  margin-bottom: 6px;
+  text-shadow: none;
 }
 
 .placeholder-select {
@@ -517,6 +574,10 @@ textarea::placeholder {
 }
 
 @media (max-width: 480px) {
+  .title-center {
+    font-size: 24px;
+  }
+
   header h1 {
     font-size: 1.6rem;
   }
