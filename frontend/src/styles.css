@@ -379,6 +379,7 @@ button.ghost {
 .event-details p {
   margin: 0 0 4px;
   font-weight: 700;
+  font-size: 1.1rem;
   text-shadow:
     -1px 0 #1f8f3f,
     1px 0 #1f8f3f,
@@ -408,8 +409,9 @@ button.ghost {
 .title-center {
   text-align: center;
   font-weight: 700;
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-size: clamp(1.5rem, 5.2vw, 3rem);
   line-height: 1.05;
+  white-space: nowrap;
   text-shadow:
     -1px 0 #1f8f3f,
     1px 0 #1f8f3f,

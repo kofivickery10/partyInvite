@@ -70,7 +70,7 @@ app.get('/api/food-choices', async (req, res) => {
 
 app.post('/api/rsvp', rsvpLimiter, async (req, res) => {
   const { invite_name_entered, phone, children } = req.body || {}
-  if (!invite_name_entered || !phone || !Array.isArray(children)) {
+  if (!invite_name_entered || !Array.isArray(children)) {
     return res.status(400).send('Missing required fields')
   }
   if (children.length === 0) {
@@ -92,7 +92,7 @@ app.post('/api/rsvp', rsvpLimiter, async (req, res) => {
     await connection.beginTransaction()
     const [result] = await connection.query(
       'INSERT INTO rsvps (invite_name_entered, phone) VALUES (?, ?)',
-      [invite_name_entered, phone]
+      [invite_name_entered, phone || null]
     )
     const rsvpId = result.insertId
 

@@ -56,7 +56,6 @@ export default function RsvpPage() {
   const [fieldErrors, setFieldErrors] = useState({
     mainChildName: '',
     mainFoodChoiceId: '',
-    phone: '',
     additionalChildren: []
   })
 
@@ -80,7 +79,6 @@ export default function RsvpPage() {
     const errors = {
       mainChildName: '',
       mainFoodChoiceId: '',
-      phone: '',
       additionalChildren: additionalChildren.map(() => ({
         child_name: '',
         food_choice_id: ''
@@ -89,7 +87,6 @@ export default function RsvpPage() {
 
     if (!mainChildName.trim()) errors.mainChildName = "Child's Name is required."
     if (!mainFoodChoiceId) errors.mainFoodChoiceId = 'Food Choice is required.'
-    if (!phone.trim()) errors.phone = 'Parent Phone is required.'
 
     additionalChildren.forEach((child, index) => {
       if (!child.child_name.trim()) {
@@ -104,7 +101,7 @@ export default function RsvpPage() {
   }
 
   const hasValidationErrors = (errors) => {
-    if (errors.mainChildName || errors.mainFoodChoiceId || errors.phone) return true
+    if (errors.mainChildName || errors.mainFoodChoiceId) return true
     return errors.additionalChildren.some(
       (child) => child.child_name || child.food_choice_id
     )
@@ -144,7 +141,7 @@ export default function RsvpPage() {
       await withTimeout(
         apiSend('/api/rsvp', 'POST', {
           invite_name_entered: mainChildName.trim(),
-          phone: phone.trim(),
+          phone: phone.trim() || null,
           children
         }),
         15000
@@ -158,7 +155,6 @@ export default function RsvpPage() {
       setFieldErrors({
         mainChildName: '',
         mainFoodChoiceId: '',
-        phone: '',
         additionalChildren: []
       })
     } catch (err) {
@@ -211,13 +207,13 @@ export default function RsvpPage() {
               </span>
               <select
                 value={mainFoodChoiceId}
-                className={`${mainFoodChoiceId ? '' : 'placeholder-select'} ${fieldErrors.mainFoodChoiceId ? 'input-invalid' : ''}`.trim()}
-                onChange={(e) => setMainFoodChoiceId(e.target.value)}
-              >
-                <option value="">Select food</option>
-                {foodChoices.map((choice) => (
-                  <option key={choice.id} value={choice.id}>
-                    {choice.label}
+              className={`${mainFoodChoiceId ? '' : 'placeholder-select'} ${fieldErrors.mainFoodChoiceId ? 'input-invalid' : ''}`.trim()}
+              onChange={(e) => setMainFoodChoiceId(e.target.value)}
+            >
+              <option value="">Select food option</option>
+              {foodChoices.map((choice) => (
+                <option key={choice.id} value={choice.id}>
+                  {choice.label}
                   </option>
                 ))}
               </select>
@@ -232,16 +228,12 @@ export default function RsvpPage() {
                 type="tel"
                 inputMode="numeric"
                 pattern="[0-9]*"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="07xxxx"
-                className={fieldErrors.phone ? 'input-invalid' : ''}
-              />
-              {fieldErrors.phone && (
-                <span className="field-error">{fieldErrors.phone}</span>
-              )}
-            </label>
+              autoComplete="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="07xxxx"
+            />
+          </label>
 
             <div className="children">
               <div className="children-header">
@@ -277,7 +269,7 @@ export default function RsvpPage() {
                       onChildChange(index, 'food_choice_id', e.target.value)
                     }
                   >
-                    <option value="">Select food</option>
+                    <option value="">Select food option</option>
                     {foodChoices.map((choice) => (
                       <option key={choice.id} value={choice.id}>
                         {choice.label}
